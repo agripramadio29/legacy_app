@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pages.views import execute_bash_script, home_view
+from pages.views import home_view, pg_stop, pg_start, pg_restart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('execute_bash_script/', execute_bash_script, name='execute_bash_script'),
+    path('execute_bash_script/', pg_stop, name='pg_stop'),
 ]
