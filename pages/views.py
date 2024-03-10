@@ -11,6 +11,8 @@ def pg_stop(request):
         return HttpResponse("PostgreSQL service has been stopped.")
     except subprocess.CalledProcessError as e:
         return HttpResponse(f"Error: {e}")
+    except FileNotFoundError as f:
+        return HttpResponse(f"This Operating System is not compatible with this Web App")
 
 def pg_start(request):
     try:
@@ -18,6 +20,8 @@ def pg_start(request):
         return HttpResponse("PostgreSQL service has been started.")
     except subprocess.CalledProcessError as e:
         return HttpResponse(f"Error: {e}")
+    except FileNotFoundError as f:
+        return HttpResponse(f"This Operating System is not compatible with this Web App")
     
 def pg_restart(request):
         try:
@@ -25,3 +29,5 @@ def pg_restart(request):
             return HttpResponse("PostgreSQL service has been started.")
         except subprocess.CalledProcessError as e:
             return HttpResponse(f"Error: {e}")
+        except FileNotFoundError as f:
+            return HttpResponse(f"This Operating System is not compatible with this Web App")

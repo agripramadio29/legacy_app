@@ -1,13 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/uikit.min.css" />
-    <title>Execute Bash Script</title>
+    <title>My Django Web App</title>
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
 </head>
 <body>
-    <h1 class="uk-align-center">Execute Bash Script</h1>
-        <input type="submit" value="Stop PostgreSQL Service" onclick="location.href='{% url 'pg_stop' %}'">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-center" href="#" style="width: 100%;">My Django Web App</a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2>Welcome to My Django Web App</h2>
+                        <p>Click the button below to stop PostgreSQL service.</p>
+                        <form action="{% url 'pg_stop' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-lg btn-custom">Stop PostgreSQL Service</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
