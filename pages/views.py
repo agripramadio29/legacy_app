@@ -23,19 +23,27 @@ def pg_stop(request):
         return render(request, "failed.html", {'message' : message})
 
 def pg_start(request):
+    message = ""
     try:
         subprocess.run(["systemctl", "start", "postgresql"], check=True)
-        return HttpResponse("PostgreSQL service has been started.")
+        message = "PostgreSQL service has been started."
+        return render(request, "success.html", {'message' : message})
     except subprocess.CalledProcessError as e:
-        return HttpResponse(f"Error: {e}")
+        message = f"Error while starting PostgreSQL, {e}"
+        return render(request, "failed.html", {'message' : message})
     except FileNotFoundError as f:
-        return HttpResponse(f"This Operating System is not compatible with this Web App")
+        message = f"{os.name} is not compatible with this Web App"
+        return render(request, "failed.html", {'message' : message})
     
 def pg_restart(request):
+        message = ""
         try:
             subprocess.run(["systemctl", "restart", "postgresql"], check=True)
-            return HttpResponse("PostgreSQL service has been started.")
+            message = "PostgreSQL service has been restarted."
+            return render(request, "success.html", {'message' : message})
         except subprocess.CalledProcessError as e:
-            return HttpResponse(f"Error: {e}")
+            message = f"Error while restarting PostgreSQL, {e}"
+            return render(request, "failed.html", {'message' : message})
         except FileNotFoundError as f:
-            return HttpResponse(f"This Operating System is not compatible with this Web App")
+            message = f"{os.name} is not compatible with this Web App"
+            return render(request, "failed.html", {'message' : message})
