@@ -14,7 +14,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand text-center" href="#" style="width: 100%;">Legacy</a>
+            <a class="navbar-brand text-center" href="{% url 'about' %}" style="width: 100%;">Legacy</a>
         </div>
     </nav>
 
@@ -22,26 +22,53 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
+                <h1 class="text-center">Services</h1>
                 <div class="card">
                     <div class="card-body text-center">
-                        <h2>PostgreSQL Services</h2>
+                        <h2>PostgreSQL</h2>
                         <div class="row">
                             <div class="col-4">
                                 <form action="{% url 'pg_stop' %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-custom">Stop PostgreSQL Service</button>
+                                    <button type="submit" class="btn btn-sm btn-danger">Stop Service</button>
                                 </form>
                             </div>
                             <div class="col-4">
                                 <form action="{% url 'pg_start' %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-custom">Start PostgreSQL Service</button>
+                                    <button type="submit" class="btn btn-sm btn-success">Start Service</button>
                                 </form>
                             </div>
                             <div class="col-4">
                                 <form action="{% url 'pg_restart' %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-custom">Restart PostgreSQL Service</button>
+                                    <button type="submit" class="btn btn-sm btn-warning">Restart Service</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2>Apache Tomcat (Port: 8777) <span class="bg-info">Beta</span></h2>
+                        <div class="row">
+                            <div class="col-4">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-danger">Stop Service</button>
+                                </form>
+                            </div>
+                            <div class="col-4">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-success">Start Service</button>
+                                </form>
+                            </div>
+                            <div class="col-4">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-warning">Restart Service</button>
                                 </form>
                             </div>
                         </div>

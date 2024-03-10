@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pages.views import home_view, pg_stop, pg_start, pg_restart
+from pages.views import home_view, pg_stop, pg_start, pg_restart, about
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +23,6 @@ urlpatterns = [
     path('execute_bash_script/', pg_stop, name='pg_stop'),
     path('execute_bash_script/', pg_start, name='pg_start'),
     path('execute_bash_script/', pg_restart, name='pg_restart'),
+    path('about/', about, name="about")
 
 ]
