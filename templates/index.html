@@ -28,22 +28,13 @@
                         <h2>PostgreSQL</h2>
                         <div class="row">
                             <div class="col-4">
-                                <form action="{% url 'pg_stop' %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-danger">Stop Service</button>
-                                </form>
+                                <button type="submit" onclick="location.href='{% url 'pg_stop' %}'" class="btn btn-sm btn-danger">Stop Service</button>
                             </div>
                             <div class="col-4">
-                                <form action="{% url 'pg_start' %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-success">Start Service</button>
-                                </form>
+                                <button type="submit" onclick="location.href='{% url 'pg_start' %}'" class="btn btn-sm btn-success">Start Service</button>
                             </div>
                             <div class="col-4">
-                                <form action="{% url 'pg_restart' %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-warning">Restart Service</button>
-                                </form>
+                                <button type="submit" onclick="location.href='{% url 'pg_restart' %}'" class="btn btn-sm btn-warning">Restart Service</button>
                             </div>
                         </div>
                     </div>

@@ -20,9 +20,9 @@ from pages.views import home_view, pg_stop, pg_start, pg_restart, about
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('execute_bash_script/', pg_stop, name='pg_stop'),
-    path('execute_bash_script/', pg_start, name='pg_start'),
-    path('execute_bash_script/', pg_restart, name='pg_restart'),
+    path('pg_stop/', pg_stop, name='pg_stop'),
+    path('pg_start/', pg_start, name='pg_start'),
+    path('pg_restart/', pg_restart, name='pg_restart'),
     path('about/', about, name="about")
 
 ]
