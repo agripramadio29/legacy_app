@@ -21,4 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
     path('execute_bash_script/', pg_stop, name='pg_stop'),
+    path('execute_bash_script/', pg_start, name='pg_start'),
+    path('execute_bash_script/', pg_restart, name='pg_restart'),
+
 ]
