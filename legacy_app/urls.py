@@ -15,14 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pages.views import home_view, pg_stop, pg_start, pg_restart, about
+from pages.views import home_view, pg_stop, pg_start, pg_restart, about, at_start, at_stop, at_restart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
+
+    #services
     path('pg_stop/', pg_stop, name='pg_stop'),
     path('pg_start/', pg_start, name='pg_start'),
     path('pg_restart/', pg_restart, name='pg_restart'),
+    path('at_start/', at_start, name='at_start'),
+    path('at_stop/', at_stop, name='at_stop'),
+    path('at_restart/', at_restart, name='at_restart'),
+
+
     path('about/', about, name="about")
 
 ]

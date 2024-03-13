@@ -19,7 +19,7 @@ def pg_stop(request):
         message = f"Error while stopping PostgreSQL, {e}"
         return render(request, "failed.html", {'message' : message})
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with this Web App"
+        message = f"{os.name} is not compatible with Legacy :("
         return render(request, "failed.html", {'message' : message})
 
 def pg_start(request):
@@ -32,7 +32,7 @@ def pg_start(request):
         message = f"Error while starting PostgreSQL, {e}"
         return render(request, "failed.html", {'message' : message})
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with this Web App"
+        message = f"{os.name} is not compatible with Legacy :("
         return render(request, "failed.html", {'message' : message})
     
 def pg_restart(request):
@@ -45,5 +45,54 @@ def pg_restart(request):
             message = f"Error while restarting PostgreSQL, {e}"
             return render(request, "failed.html", {'message' : message})
         except FileNotFoundError as f:
-            message = f"{os.name} is not compatible with this Web App"
+            message = f"{os.name} is not compatible with Legacy :("
             return render(request, "failed.html", {'message' : message})
+
+#TOMCAT SERVICE
+
+def at_stop(request):
+    message = ""
+    try:
+        subprocess.run(["bash","/usr/local/tomcat/bin/shutdown.sh"], check=True)
+        message = "Apache Tomcat successfully turned off"
+        return render(request, "success.html", {"message": message})
+    except subprocess.CalledProcessError as e:
+        message = f"Error while shutting down Apache Tomcat, {e}"
+        return render(request, "failed.html", {"message": message})
+    except FileNotFoundError as f:
+        message = f"{os.name} is not compatible with Legacy :("
+        return render(request, "failed.html", {"message": message})
+
+
+def at_start(request):
+    message = ""
+    try:
+        subprocess.run(["bash","/usr/local/tomcat/bin/startup.sh"], check=True)
+        message = "Apache Tomcat successfully started"
+        return render(request, "success.html", {"message": message})
+    except subprocess.CalledProcessError as e:
+        message = f"Error while starting Apache Tomcat, {e}"
+        return render(request, "failed.html", {"message": message})
+    except FileNotFoundError as f:
+        message = f"{os.name} is not compatible with Legacy :("
+        return render(request, "failed.html", {"message": message})
+
+def at_restart(request):
+    message = ""
+    try:
+        subprocess.run(["bash","/usr/local/tomcat/bin/shutdown.sh"], check=True)
+        subprocess.run(["bash","/usr/local/tomcat/bin/startup.sh"], check=True)
+        message = "Apache Tomcat successfully restarted"
+        return render(request, "success.html", {"message": message})
+    except subprocess.CalledProcessError as e:
+        message = f"Error while restarting Apache Tomcat, {e}"
+        return render(request, "failed.html", {"message": message})
+    except FileNotFoundError as f:
+        message = f"{os.name} is not compatible with Legacy :("
+        return render(request, "failed.html", {"message": message})
+
+
+
+
+
+
