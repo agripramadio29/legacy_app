@@ -66,10 +66,14 @@ def at_stop(request):
 
 def at_start(request):
     message = ""
+    contexts = {}
     try:
-        subprocess.run(["bash","/usr/local/tomcat/bin/startup.sh"], check=True)
+        result = subprocess.run(["bash", "/usr/local/tomcat/bin/startup.sh"], capture_output=True, text=True, check=True)
+        output = result.stdout
         message = "Apache Tomcat successfully started"
-        return render(request, "success.html", {"message": message})
+        contexts.update({"output": output})
+        contexts.update({"message": message})
+        return render(request, "success.html", contexts)
     except subprocess.CalledProcessError as e:
         message = f"Error while starting Apache Tomcat, {e}"
         return render(request, "failed.html", {"message": message})
