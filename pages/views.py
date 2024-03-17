@@ -2,7 +2,7 @@ from django.shortcuts import render
 import subprocess
 from django.http import HttpResponse
 import os
-from services import tomcat
+from services import tomcat, postgresql
 # Create your views here.
 def home_view(request):
     return render(request, "index.html")
@@ -10,44 +10,19 @@ def home_view(request):
 def about(request):
     return render(request, "about.html")
 
+# PREDEFINED SERVICES
+
 def pg_stop(request):
-    message = ""
-    try:
-        subprocess.run(["systemctl", "stop", "postgresql"], check=True)
-        message = "PostgreSQL service has been stopped."
-        return render(request, "success.html", {'message' : message})
-    except subprocess.CalledProcessError as e:
-        message = f"Error while stopping PostgreSQL, {e}"
-        return render(request, "failed.html", {'message' : message})
-    except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-        return render(request, "failed.html", {'message' : message})
+    message = postgresql.stop()
+    return render(request, "success.html", {'message': message})
 
 def pg_start(request):
-    message = ""
-    try:
-        subprocess.run(["systemctl", "start", "postgresql"], check=True)
-        message = "PostgreSQL service has been started."
-        return render(request, "success.html", {'message' : message})
-    except subprocess.CalledProcessError as e:
-        message = f"Error while starting PostgreSQL, {e}"
-        return render(request, "failed.html", {'message' : message})
-    except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-        return render(request, "failed.html", {'message' : message})
+    message = postgresql.start()
+    return render(request, "success.html", {'message': message})
     
 def pg_restart(request):
-        message = ""
-        try:
-            subprocess.run(["systemctl", "restart", "postgresql"], check=True)
-            message = "PostgreSQL service has been restarted."
-            return render(request, "success.html", {'message' : message})
-        except subprocess.CalledProcessError as e:
-            message = f"Error while restarting PostgreSQL, {e}"
-            return render(request, "failed.html", {'message' : message})
-        except FileNotFoundError as f:
-            message = f"{os.name} is not compatible with Legacy :("
-            return render(request, "failed.html", {'message' : message})
+    message = postgresql.restart()
+    return render(request, "success.html", {'message': message})
 
 #TOMCAT SERVICE
 
@@ -56,25 +31,16 @@ def at_stop(request):
     return render(request, "success.html", {"message": message})
 
 def at_start(request):
-    contexts = tomcat.start()
-    return render(request, "success.html", contexts)
+    message = tomcat.start()
+    return render(request, "success.html", {"message": message})
 
 
 def at_restart(request):
-    message = ""
-    try:
-        subprocess.run(["bash","/usr/local/tomcat/bin/shutdown.sh"], check=True)
-        subprocess.run(["bash","/usr/local/tomcat/bin/startup.sh"], check=True)
-        message = "Apache Tomcat successfully restarted"
-        return render(request, "success.html", {"message": message})
-    except subprocess.CalledProcessError as e:
-        message = f"Error while restarting Apache Tomcat, {e}"
-        return render(request, "failed.html", {"message": message})
-    except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-        return render(request, "failed.html", {"message": message})
+    message = tomcat.restart()
+    return render(request, "success.html", {"message": message})
 
 
+# ENDBLOCK
 
 
 

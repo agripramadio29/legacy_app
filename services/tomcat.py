@@ -14,20 +14,14 @@ def stop():
 
 def start():
     message = ""
-    contexts = {}
     try:
-        result = subprocess.run(["bash", "/usr/local/tomcat/bin/startup.sh"], capture_output=True, text=True, check=True)
-        output = result.stdout
+        result = subprocess.run(["bash", "/usr/local/tomcat/bin/startup.sh"], check=True)
         message = "Apache Tomcat successfully started"
-        contexts.update({"output": output})
-        contexts.update({"message": message})
     except subprocess.CalledProcessError as e:
         message = f"Error while starting Apache Tomcat, {e}"
-        contexts.update({"message": message})
     except FileNotFoundError as f:
         message = f"{os.name} is not compatible with Legacy :("
-        contexts.update({"message": message})
-    return contexts
+    return message
 
 def restart():
     message = ""
