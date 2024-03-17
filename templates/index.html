@@ -43,6 +43,9 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <h2>Apache Tomcat</h2>
+                        <button type="submit" onclick="location.href='{% url 'at_status' %}'" class="btn btn-sm btn-info">Check Service</button> <span>{{status}}</span>
+                        <br />
+                        <br />
                         <div class="row">
                             <div class="col-4">
                                 <button type="submit" onclick="location.href='{% url 'at_stop' %}'" class="btn btn-sm btn-danger">Stop Service</button>

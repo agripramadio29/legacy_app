@@ -1,5 +1,17 @@
 import subprocess
 import os
+import requests
+
+def check_status():
+    status = ""
+    try:
+        req = requests.get('http://localhost:8001')
+        status = "Active"
+    except ConnectionRefusedError as x:
+        status = "Inactive"
+    except Exception as f:
+        status = "Inactive"
+    return status
 
 def stop():
     message = ""

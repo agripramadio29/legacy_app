@@ -3,9 +3,13 @@ import subprocess
 from django.http import HttpResponse
 import os
 from services import tomcat, postgresql
+from django.shortcuts import redirect
+from django.urls import reverse
+
 # Create your views here.
 def home_view(request):
-    return render(request, "index.html")
+    status = request.GET.get('status', None)
+    return render(request, "index.html", {'status': status})
 
 def about(request):
     return render(request, "about.html")
@@ -25,6 +29,10 @@ def pg_restart(request):
     return render(request, "success.html", {'message': message})
 
 #TOMCAT SERVICE
+
+def at_status(request):
+    status = tomcat.check_status()
+    return redirect(reverse('home') + '?status=' + status)
 
 def at_stop(request):
     message = tomcat.stop()

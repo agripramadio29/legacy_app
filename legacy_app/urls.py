@@ -28,6 +28,7 @@ urlpatterns = [
     path('at_start/', views.at_start, name='at_start'),
     path('at_stop/', views.at_stop, name='at_stop'),
     path('at_restart/', views.at_restart, name='at_restart'),
+    path('at_status/', views.at_status, name='at_status'),
 
 
     path('about/', views.about, name="about")
