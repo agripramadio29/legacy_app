@@ -2,6 +2,7 @@ from django.shortcuts import render
 import subprocess
 from django.http import HttpResponse
 import os
+from services import tomcat
 # Create your views here.
 def home_view(request):
     return render(request, "index.html")
@@ -51,17 +52,9 @@ def pg_restart(request):
 #TOMCAT SERVICE
 
 def at_stop(request):
-    message = ""
-    try:
-        subprocess.run(["bash","/usr/local/tomcat/bin/shutdown.sh"], check=True)
-        message = "Apache Tomcat successfully turned off"
-        return render(request, "success.html", {"message": message})
-    except subprocess.CalledProcessError as e:
-        message = f"Error while shutting down Apache Tomcat, {e}"
-        return render(request, "failed.html", {"message": message})
-    except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-        return render(request, "failed.html", {"message": message})
+    message = tomcat.stop()
+    return render(request, "success.html", {"message": message})
+
 
 
 def at_start(request):
