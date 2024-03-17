@@ -55,24 +55,10 @@ def at_stop(request):
     message = tomcat.stop()
     return render(request, "success.html", {"message": message})
 
-
-
 def at_start(request):
-    message = ""
-    contexts = {}
-    try:
-        result = subprocess.run(["bash", "/usr/local/tomcat/bin/startup.sh"], capture_output=True, text=True, check=True)
-        output = result.stdout
-        message = "Apache Tomcat successfully started"
-        contexts.update({"output": output})
-        contexts.update({"message": message})
-        return render(request, "success.html", contexts)
-    except subprocess.CalledProcessError as e:
-        message = f"Error while starting Apache Tomcat, {e}"
-        return render(request, "failed.html", {"message": message})
-    except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-        return render(request, "failed.html", {"message": message})
+    contexts = tomcat.start()
+    return render(request, "success.html", contexts)
+
 
 def at_restart(request):
     message = ""
