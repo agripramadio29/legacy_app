@@ -14,6 +14,9 @@ def home_view(request):
 def about(request):
     return render(request, "about.html")
 
+def legacy(request):
+    return redirect('home')
+
 # PREDEFINED SERVICES
 
 def pg_stop(request):

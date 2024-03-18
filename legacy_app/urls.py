@@ -29,7 +29,7 @@ urlpatterns = [
     path('at_stop/', views.at_stop, name='at_stop'),
     path('at_restart/', views.at_restart, name='at_restart'),
     path('at_status/', views.at_status, name='at_status'),
-
+    path('legacy/', views.legacy, name='legacy'),
 
     path('about/', views.about, name="about")
 
