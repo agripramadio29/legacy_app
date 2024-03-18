@@ -5,7 +5,7 @@ import requests
 def check_status():
     status = ""
     try:
-        req = requests.get('http://localhost:8001')
+        req = requests.get('http://10.12.4.164:8777')
         status = "Active"
     except ConnectionRefusedError as x:
         status = "Inactive"
@@ -16,7 +16,7 @@ def check_status():
 def stop():
     message = ""
     try:
-        subprocess.run(["bash","/usr/local/tomcat/bin/shutdown.sh"], check=True)
+        subprocess.run(["bash","/usr/local/tomcat2/bin/shutdown.sh"], check=True)
         message = "Apache Tomcat turned off successfully"
     except subprocess.CalledProcessError as e:
         message = f"Error while shutting down Apache Tomcat, {e}"
@@ -27,7 +27,7 @@ def stop():
 def start():
     message = ""
     try:
-        result = subprocess.run(["bash", "/usr/local/tomcat/bin/startup.sh"], check=True)
+        result = subprocess.run(["bash", "/usr/local/tomcat2/bin/startup.sh"], check=True)
         message = "Apache Tomcat successfully started"
     except subprocess.CalledProcessError as e:
         message = f"Error while starting Apache Tomcat, {e}"
@@ -38,8 +38,8 @@ def start():
 def restart():
     message = ""
     try:
-        subprocess.run(["bash","/usr/local/tomcat/bin/shutdown.sh"], check=True)
-        subprocess.run(["bash","/usr/local/tomcat/bin/startup.sh"], check=True)
+        subprocess.run(["bash","/usr/local/tomcat2/bin/shutdown.sh"], check=True)
+        subprocess.run(["bash","/usr/local/tomcat2/bin/startup.sh"], check=True)
         message = "Apache Tomcat restarted successfully"
     except subprocess.CalledProcessError as e:
         message = f"Error while restarting Apache Tomcat, {e}"
