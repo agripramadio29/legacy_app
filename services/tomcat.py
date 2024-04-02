@@ -27,7 +27,7 @@ def stop():
 def start():
     message = ""
     try:
-        result = subprocess.run(["bash", "/usr/local/tomcat2/bin/startup.sh"], check=True)
+        subprocess.run(["bash", "/usr/local/tomcat2/bin/startup.sh"], check=True)
         message = "Apache Tomcat successfully started"
     except subprocess.CalledProcessError as e:
         message = f"Error while starting Apache Tomcat, {e}"
