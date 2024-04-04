@@ -14,35 +14,35 @@ def check_status():
     return status
 
 def stop():
-    message = ""
+    code = 0
     try:
         subprocess.run(["bash","/usr/local/tomcat2/bin/shutdown.sh"], check=True)
-        message = "Apache Tomcat turned off successfully"
+        code = 1
     except subprocess.CalledProcessError as e:
-        message = f"Error while shutting down Apache Tomcat, {e}"
+        code = -1
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-    return message
+        code = -2
+    return code
 
 def start():
-    message = ""
+    code = 0
     try:
-        subprocess.run(["bash", "/usr/local/tomcat2/bin/startup.sh"], check=True)
-        message = "Apache Tomcat successfully started"
+        subprocess.run(["bash","/usr/local/tomcat2/bin/startup.sh"], check=True)
+        code = 1
     except subprocess.CalledProcessError as e:
-        message = f"Error while starting Apache Tomcat, {e}"
+        code = -1
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-    return message
+        code = -2
+    return code
 
 def restart():
-    message = ""
+    code = 0
     try:
         subprocess.run(["bash","/usr/local/tomcat2/bin/shutdown.sh"], check=True)
         subprocess.run(["bash","/usr/local/tomcat2/bin/startup.sh"], check=True)
-        message = "Apache Tomcat restarted successfully"
+        code = 1
     except subprocess.CalledProcessError as e:
-        message = f"Error while restarting Apache Tomcat, {e}"
+        code = -1
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-    return message
+        code = -2
+    return code

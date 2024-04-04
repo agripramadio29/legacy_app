@@ -5,6 +5,7 @@ import os
 from services import tomcat, postgresql
 from django.shortcuts import redirect
 from django.urls import reverse
+from legacy_app import apputils
 import sweetify
 
 # Create your views here.
@@ -21,23 +22,20 @@ def legacy(request):
 # PREDEFINED SERVICES
 
 def pg_stop(request):
-    message = postgresql.stop()
-    # if message == "PostgreSQL service has been stopped.":
-    #     sweetify.success(request, message)
-    #     return redirect('')
-    # else:
-    #     sweetify.error(request, message)
-    sweetify.success(request, message) if message == "PostgreSQL service has been stopped." else sweetify.error(request, message)
+    code = postgresql.stop()
+    sweetify.success(request, apputils.process_results("PostgreSQL", "stopp", code)) if code == 1 else sweetify.error(request, apputils.process_results("PostgreSQL", "stopp", code))
     return redirect('/')
 
+
 def pg_start(request):
-    message = postgresql.start()
-    sweetify.success(request, message) if message == "PostgreSQL service has been started." else sweetify.error(request, message)
+    code = postgresql.start()
+    sweetify.success(request, apputils.process_results("PostgreSQL", "start", code)) if code == 1 else sweetify.error(request, apputils.process_results("PostgreSQL", "start", code))
     return redirect('/')
     
 def pg_restart(request):
-    message = postgresql.restart()
-    return render(request, "success.html", {'message': message})
+    code = postgresql.restart()
+    sweetify.success(request, apputils.process_results("PostgreSQL", "restart", code)) if code == 1 else sweetify.error(request, apputils.process_results("PostgreSQL", "restart", code))
+    return redirect('/')
 
 #TOMCAT SERVICE
 
@@ -46,17 +44,20 @@ def at_status(request):
     return redirect(reverse('home') + '?status=' + status)
 
 def at_stop(request):
-    message = tomcat.stop()
-    return render(request, "success.html", {"message": message})
+    code = tomcat.stop()
+    sweetify.success(request, apputils.process_results("Apache Tomcat", "stopp", code)) if code == 1 else sweetify.error(request, apputils.process_results("Apache Tomcat", "stopp", code))
+    return redirect('/')
 
 def at_start(request):
-    message = tomcat.start()
-    return render(request, "success.html", {"message": message})
+    code = postgresql.start()
+    sweetify.success(request, apputils.process_results("Apache Tomcat", "start", code)) if code == 1 else sweetify.error(request, apputils.process_results("Apache Tomcat", "start", code))
+    return redirect('/')
 
 
 def at_restart(request):
-    message = tomcat.restart()
-    return render(request, "success.html", {"message": message})
+    code = postgresql.restart()
+    sweetify.success(request, apputils.process_results("Apache Tomcat", "restart", code)) if code == 1 else sweetify.error(request, apputils.process_results("Apache Tomcat", "restart", code))
+    return redirect('/')
 
 
 # ENDBLOCK

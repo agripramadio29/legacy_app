@@ -2,34 +2,34 @@ import subprocess
 import os
 
 def stop():
-    message = ""
+    code = 0
     try:
         subprocess.run(["systemctl", "stop", "postgresql"], check=True)
-        message = "PostgreSQL service has been stopped."
+        code = 1
     except subprocess.CalledProcessError as e:
-        message = f"Error while stopping postgresql, {e}"
+        code = -1
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-    return message
+        code = -2
+    return code
 
 def start():
-    message = ""
+    code = 0
     try:
         subprocess.run(["systemctl", "start", "postgresql"], check=True)
-        message = "PostgreSQL service has been started."
+        code = 1
     except subprocess.CalledProcessError as e:
-        message = f"Error while starting postgresql, {e}"
+        code = -1
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-    return message
+        code = -2
+    return code
 
 def restart():
-    message = ""
+    code = 0
     try:
         subprocess.run(["systemctl", "restart", "postgresql"], check=True)
-        message = "PostgreSQL service has been restarted."
+        code = 1
     except subprocess.CalledProcessError as e:
-        message = f"Error while restarting postgresql, {e}"
+        code = -1
     except FileNotFoundError as f:
-        message = f"{os.name} is not compatible with Legacy :("
-    return message
+        code = -2
+    return code
