@@ -5,6 +5,7 @@ import os
 from services import tomcat, postgresql
 from django.shortcuts import redirect
 from django.urls import reverse
+import sweetify
 
 # Create your views here.
 def home_view(request):
@@ -21,11 +22,18 @@ def legacy(request):
 
 def pg_stop(request):
     message = postgresql.stop()
-    return render(request, "success.html", {'message': message})
+    # if message == "PostgreSQL service has been stopped.":
+    #     sweetify.success(request, message)
+    #     return redirect('')
+    # else:
+    #     sweetify.error(request, message)
+    sweetify.success(request, message) if message == "PostgreSQL service has been stopped." else sweetify.error(request, message)
+    return redirect('/')
 
 def pg_start(request):
     message = postgresql.start()
-    return render(request, "success.html", {'message': message})
+    sweetify.success(request, message) if message == "PostgreSQL service has been started." else sweetify.error(request, message)
+    return redirect('/')
     
 def pg_restart(request):
     message = postgresql.restart()

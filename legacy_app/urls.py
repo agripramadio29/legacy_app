@@ -22,7 +22,7 @@ urlpatterns = [
     path('', views.home_view, name='home'),
 
     #services
-    path('pg_stop/', views.pg_stop, name='pg_stop'),
+    path('pg_stop', views.pg_stop, name='pg_stop'),
     path('pg_start/', views.pg_start, name='pg_start'),
     path('pg_restart/', views.pg_restart, name='pg_restart'),
     path('at_start/', views.at_start, name='at_start'),
