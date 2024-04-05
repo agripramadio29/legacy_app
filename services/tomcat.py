@@ -1,6 +1,7 @@
 import subprocess
 import os
 import requests
+import datetime
 
 def check_status():
     status = ""
@@ -46,3 +47,19 @@ def restart():
     except FileNotFoundError as f:
         code = -2
     return code
+
+
+def download_logs():
+    code = 0
+    try:
+        command = ["tail", "-n", "50", "/home/edwardharris/SwadharmaHehe/postgresql.conf"]
+        docname = "logs " + str(datetime.datetime.now())
+        with open(docname, "w") as output_file:
+        # Execute the command and redirect its output to the file
+            subprocess.run(command, stdout=output_file)
+        code = 1
+    except subprocess.CalledProcessError as e:
+        code = -1
+    return code
+
+

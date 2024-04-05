@@ -49,15 +49,20 @@ def at_stop(request):
     return redirect('/')
 
 def at_start(request):
-    code = postgresql.start()
+    code = tomcat.start()
     sweetify.success(request, apputils.process_results("Apache Tomcat", "start", code)) if code == 1 else sweetify.error(request, apputils.process_results("Apache Tomcat", "start", code))
     return redirect('/')
 
 
 def at_restart(request):
-    code = postgresql.restart()
+    code = tomcat.restart()
     sweetify.success(request, apputils.process_results("Apache Tomcat", "restart", code)) if code == 1 else sweetify.error(request, apputils.process_results("Apache Tomcat", "restart", code))
     return redirect('/')
+
+def download_logs(request):
+    code = tomcat.download_logs()
+    sweetify.success(request, "ok") if code == 1 else sweetify.error(request, "fail")
+    return redirect("/")
 
 
 # ENDBLOCK

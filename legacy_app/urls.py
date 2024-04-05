@@ -30,6 +30,7 @@ urlpatterns = [
     path('at_restart/', views.at_restart, name='at_restart'),
     path('at_status/', views.at_status, name='at_status'),
     path('legacy/', views.legacy, name='legacy'),
+    path('download_logs/', views.download_logs, name='download_logs'),
 
     path('about/', views.about, name="about")
 
